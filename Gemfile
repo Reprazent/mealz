@@ -16,6 +16,10 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+# Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 serv...
+# [puma](http://puma.io)
+gem "puma", "~> 2.11.1"
+
 group :development, :test do
   gem "pry"
   gem "pry-rails", "~> 0.3.2"
