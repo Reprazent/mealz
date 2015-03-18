@@ -1,0 +1,50 @@
+#! /usr/bin/ruby
+
+def report(text)
+  puts "=" * 50
+  puts "  #{text} ".center(50, "*")
+end
+
+def todo(text)
+  puts "‼️ #{text}"
+end
+
+def finish(text)
+  puts "🍻 #{text}"
+end
+
+dependencies = %w(postgres heroku forego)
+
+report("dependencies")
+
+dependencies.each do |dependency|
+  todo "install #{dependency} `brew install #{dependency}`"
+end
+
+report "Creating database user"
+`createuser -S -d -R -e -w mealz`
+
+report "Creating database"
+`bundle exec rake db:create`
+
+report "Creating basic environment variables"
+
+environment = {
+  rails_env: "development",
+  port: "1234",
+}
+
+File.open ".env", "w+" do |f|
+  environment.each do |name, param|
+    f << "#{name.upcase}=#{param}\n"
+    todo "Please set #{name.upcase} in .env" unless param
+  end
+end
+
+report "loading schema"
+`rake db:schema:load`
+
+report "seeding the database"
+`rake db:seed`
+
+finish "all done, start the app with `forego start -f Procfile.local`"
