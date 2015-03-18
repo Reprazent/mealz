@@ -16,6 +16,10 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+# Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgre...
+# [pg](https://bitbucket.org/ged/ruby-pg)
+gem "pg", "~> 0.18.1"
+
 # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 serv...
 # [puma](http://puma.io)
 gem "puma", "~> 2.11.1"
