@@ -4,12 +4,16 @@ require "rails/test_help"
 require "minitest/rails"
 require "minitest/pride"
 
+DatabaseCleaner.strategy = :transaction
 
-module ActiveSupport
-  class TestCase
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
+module MiniTest
+  class Spec
+    before :each do
+      DatabaseCleaner.start
+    end
 
-    # Add more helper methods to be used by all tests here...
+    after :each do
+      DatabaseCleaner.clean
+    end
   end
 end
