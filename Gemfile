@@ -25,6 +25,8 @@ gem "pg", "~> 0.18.1"
 gem "puma", "~> 2.11.1"
 
 group :development, :test do
+  gem "database_cleaner", "~> 1.4.1"
+  gem "factory_girl_rails", "~> 4.5.0"
   gem "pry"
   gem "pry-rails", "~> 0.3.2"
   gem "minitest-rails", "~> 2.1.1"
