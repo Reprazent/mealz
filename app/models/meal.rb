@@ -6,7 +6,7 @@ class Meal < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   def check_all_users
-    errors.add(:users, "has no eaters") if users.empty?
+    errors.add(:users, "has no eaters") if users.size < 2
     errors.add(:users, "does not contain the payer") unless users.include? payed_by
   end
 end

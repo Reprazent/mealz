@@ -21,7 +21,7 @@ describe Meal do
     it "needs eaters including the payer" do
       @meal.valid?
       assert_equal 2, @meal.errors[:users].size
-      @meal.users << FactoryGirl.build(:user)
+      @meal.users += FactoryGirl.build_list(:user, 2)
       @meal.valid?
       assert_equal 1, @meal.errors[:users].size
       @meal.payed_by = FactoryGirl.build(:user)
