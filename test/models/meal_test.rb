@@ -11,10 +11,11 @@ describe Meal do
     end
 
     it "needs a payer" do
-      assert !@meal.valid?
-      assert @meal.errors[:payed_by]
+      @meal.valid?
+      assert @meal.errors[:payed_by].any?
       @meal.payed_by = User.new
-      assert @meal.valid?
+      @meal.valid?
+      assert @meal.errors[:payed_by].empty?
     end
   end
 
