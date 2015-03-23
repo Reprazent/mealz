@@ -8,7 +8,7 @@ describe User do
   describe "validations" do
     before do
       User.create(username: "Piet")
-      @user = User.new
+      @user = User.new(username: "")
     end
 
     it "needs a unique username" do

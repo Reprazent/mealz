@@ -11,9 +11,21 @@ describe Meal do
     end
 
     it "needs a payer" do
-      assert !@meal.valid?
-      assert @meal.errors[:payed_by]
+      @meal.valid?
+      assert @meal.errors[:payed_by].any?
       @meal.payed_by = User.new
+      @meal.valid?
+      assert @meal.errors[:payed_by].empty?
+    end
+
+    it "needs eaters including the payer" do
+      @meal.valid?
+      assert_equal 2, @meal.errors[:users].size
+      @meal.users += FactoryGirl.build_list(:user, 2)
+      @meal.valid?
+      assert_equal 1, @meal.errors[:users].size
+      @meal.payed_by = FactoryGirl.build(:user)
+      @meal.users << @meal.payed_by
       assert @meal.valid?
     end
   end
