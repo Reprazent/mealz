@@ -5,6 +5,12 @@ class MealBuilder
     @meal_params = meal_params
   end
 
+  def create_meal
+    build_meal
+    recalculate_balances! if meal.save
+    meal
+  end
+
   def recalculate_balances!
     return unless meal
     meal.users.each do |u|

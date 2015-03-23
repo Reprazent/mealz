@@ -39,6 +39,27 @@ describe MealBuilder do
     assert meal.valid?
   end
 
+  describe "Saving a meal" do
+    before do
+      @builder.meal_params = { eater_names: ["pjaspers ", "atog", "TomKlaasen", "tomklaasen", "Reprazent"], payed_by_username: "reprazent", amount: "7,9" }
+    end
+
+    it "it recalculates balances when creating a meal" do
+      @builder.expects(:recalculate_balances!)
+      @builder.create_meal
+    end
+
+    it "saves a meal" do
+      assert @builder.create_meal.persisted?
+    end
+
+    it "returns a meal with errors if invalid" do
+      @builder.meal_params.merge!(amount: "geen amount")
+      assert @builder.create_meal.errors[:amount].any?
+    end
+
+  end
+
   describe "balances" do
     before do
       @payer = FactoryGirl.create(:user, balance: 10.5)
