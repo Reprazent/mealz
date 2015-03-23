@@ -5,6 +5,15 @@ class MealBuilder
     @meal_params = meal_params
   end
 
+  def recalculate_balances!
+    return unless meal
+    meal.users.each do |u|
+      u.balance += meal.amount if u == meal.payed_by
+      u.balance -= meal.amount / meal.users.size
+      u.save!
+    end
+  end
+
   def build_meal
     self.meal = Meal.new.tap do |meal|
       meal.raw_params = meal_params

@@ -38,4 +38,20 @@ describe MealBuilder do
     assert_equal 7.9, meal.amount
     assert meal.valid?
   end
+
+  describe "balances" do
+    before do
+      @payer = FactoryGirl.create(:user, balance: 10.5)
+      @eater = FactoryGirl.create(:user, balance: 20.5)
+      meal = FactoryGirl.create(:meal, amount: 5, payed_by: @payer, users: [@payer, @eater])
+      @builder.meal = meal
+    end
+
+    it "calculates the balances for the user" do
+      @builder.recalculate_balances!
+      assert_equal 13, @payer.reload.balance
+      assert_equal 18, @eater.reload.balance
+    end
+  end
+
 end
