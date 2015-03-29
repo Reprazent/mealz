@@ -7,8 +7,11 @@ class MealBuilder
 
   def create_meal
     build_meal
-    recalculate_balances! if meal.save
-    meal.reload
+    if meal.save
+      recalculate_balances!
+      meal.reload
+    end
+    meal
   end
 
   def recalculate_balances!
