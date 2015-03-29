@@ -24,6 +24,14 @@ gem "pg", "~> 0.18.1"
 # [puma](http://puma.io)
 gem "puma", "~> 2.11.1"
 
+# A set of Rails responders to dry up your application
+# [responders](http://github.com/plataformatec/responders)
+gem "responders", "~> 2.1.0"
+
+# Making it easy to serialize models for client-side use
+# [active_model_serializers](https://github.com/rails-api/active_model_serializers)
+gem "active_model_serializers", "~> 0.9.3"
+
 group :development, :test do
   gem "database_cleaner", "~> 1.4.1"
   gem "factory_girl_rails", "~> 4.5.0"
