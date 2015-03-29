@@ -1,7 +1,12 @@
 require "test_helper"
 
-class Api::UsersControllerTest < ActionController::TestCase
-  def test_sanity
-    flunk "Need real tests"
+describe Api::UsersController do
+  before do
+    @users = FactoryGirl.create_list(:user, 2)
+  end
+
+  it "lists all users" do
+    get :index, format: :json
+    assert_equal 2, JSON.parse(response.body).size
   end
 end
