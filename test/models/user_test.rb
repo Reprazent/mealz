@@ -26,4 +26,23 @@ describe User do
     @user.save!
     assert @user.meals.size == 2
   end
+
+  describe "archiving" do
+    it "can be archived" do
+      assert @user.archive!
+      assert @user.archived_at
+    end
+
+    it "can be archived" do
+      assert @user.unarchive!
+      refute @user.archived_at
+    end
+
+    it "can find unarchived users" do
+      archived_user = FactoryGirl.create(:archived_user)
+      unarchived_user = FactoryGirl.create(:user)
+      assert User.unarchived.include? unarchived_user
+      refute User.unarchived.include? archived_user
+    end
+  end
 end
