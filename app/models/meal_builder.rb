@@ -9,9 +9,14 @@ class MealBuilder
     build_meal
     if meal.save
       recalculate_balances!
+      unarchive_users!
       meal.reload
     end
     meal
+  end
+
+  def unarchive_users!
+    users.map(&:unarchive!)
   end
 
   def recalculate_balances!
