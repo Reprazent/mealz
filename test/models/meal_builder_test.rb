@@ -31,6 +31,13 @@ describe MealBuilder do
     assert_equal ["pjaspers", "reprazent", "atog", "tomklaasen"].sort, @builder.users.map(&:username).sort
   end
 
+  it "can unarchive the users" do
+    user = FactoryGirl.create(:user)
+    @builder.expects(:users).returns([user])
+    user.expects(:unarchive!)
+    @builder.unarchive_users!
+  end
+
   it "can build a meal" do
     @builder.meal_params = { eater_names: ["pjaspers ", "atog", "TomKlaasen", "tomklaasen", "Reprazent"], payed_by_username: "reprazent", amount: "7,9" }
     meal = @builder.build_meal
@@ -46,6 +53,11 @@ describe MealBuilder do
 
     it "it recalculates balances when creating a meal" do
       @builder.expects(:recalculate_balances!)
+      @builder.create_meal
+    end
+
+    it "unarchives all the users" do
+      @builder.expects(:unarchive_users!)
       @builder.create_meal
     end
 
