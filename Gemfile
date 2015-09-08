@@ -32,6 +32,10 @@ gem "responders", "~> 2.1.0"
 # [active_model_serializers](https://github.com/rails-api/active_model_serializers)
 gem "active_model_serializers", "~> 0.9.3"
 
+# Run Rails the 12factor way
+# [rails_12factor](https://github.com/heroku/rails_12factor)
+gem "rails_12factor", "~> 0.0.3"
+
 group :development, :test do
   gem "database_cleaner", "~> 1.4.1"
   gem "factory_girl_rails", "~> 4.5.0"
