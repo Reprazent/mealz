@@ -15,4 +15,18 @@ describe Api::MealsController do
     body = JSON.parse(response.body)
     assert_equal 5.925, body["meal"]["payed_by"]["balance"]
   end
+
+  it "Can delete a meal." do
+    meal_params = { eater_names: ["pjaspers ", "atog", "TomKlaasen", "tomklaasen", "Reprazent"], payed_by_username: "reprazent", amount: "7,9" }
+    builder = MealBuilder.new(meal_params)
+    meal = builder.create_meal
+    meal.save
+
+    assert_difference("Meal.count", -1) do
+      delete :destroy, id: meal.id, format: :json
+    end
+
+    # make sure all users have 0 as their balance.
+    assert_equal [], User.all.map(&:balance).map(&:round) - [0]
+  end
 end
