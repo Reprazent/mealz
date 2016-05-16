@@ -9,8 +9,7 @@ module Api
     end
 
     def destroy
-      meal = Meal.find(params[:id])
-      if meal.destroy
+      if MealDestroyer.new(params[:id]).destroy_meal
         @users = User.unarchived.order("balance ASC")
         render json: @users, location: nil, root: false
       else
