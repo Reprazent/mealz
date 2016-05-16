@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908180718) do
+ActiveRecord::Schema.define(version: 20160516215800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "meals", force: :cascade do |t|
-    t.integer  "payed_by_id",               null: false
-    t.float    "amount",      default: 0.0, null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "payed_by_id",                null: false
+    t.float    "amount",       default: 0.0, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.hstore   "raw_params"
+    t.datetime "cancelled_at"
   end
 
   add_index "meals", ["payed_by_id"], name: "index_meals_on_payed_by_id", using: :btree
