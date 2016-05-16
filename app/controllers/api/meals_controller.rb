@@ -14,7 +14,7 @@ module Api
         @users = User.unarchived.order("balance ASC")
         render json: @users, location: nil, root: false
       else
-        respond_with json: { error: "You broke all the things!" }, location: nil
+        render json: { error: "You broke all the things!" }, location: nil
       end
     end
 
@@ -25,7 +25,7 @@ module Api
     private
 
     def record_not_found
-      render json: { error: "Meal not found." }, status: :not_found
+      render json: { error: "Meal not found." }, location: nil, status: :not_found
     end
 
   end
