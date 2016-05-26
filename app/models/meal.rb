@@ -4,6 +4,7 @@ class Meal < ActiveRecord::Base
   validates :amount, presence: true
   validate :check_all_users
   has_and_belongs_to_many :users
+  scope :active, -> { where(cancelled_at: nil) }
 
   def check_all_users
     errors.add(:users, "has no eaters") if users.size < 2
